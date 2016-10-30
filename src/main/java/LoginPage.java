@@ -21,6 +21,7 @@ public class LoginPage {
         this.driver = driver;
         System.setProperty("webdriver.gecko.driver", "geckodriver");
     }
+
 //
 //    public LoginPage(FirefoxDriver driverFirefox) {
 //        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
