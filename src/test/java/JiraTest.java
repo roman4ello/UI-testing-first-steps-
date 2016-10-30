@@ -1,6 +1,5 @@
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
@@ -22,10 +21,10 @@ public class JiraTest {
 
     @BeforeTest
     public void setUp() {
-        driver = new FirefoxDriver();
-        DesiredCapabilities capability = DesiredCapabilities.chrome();
-        capability.setBrowserName("chrome" );
-        capability.setPlatform(Platform.MAC);
+//        driver = new FirefoxDriver();
+        DesiredCapabilities capability = DesiredCapabilities.firefox();
+        capability.setBrowserName("Firefox" );
+        capability.setPlatform(Platform.LINUX);
         WebDriver driver = null;
         try {
             driver = new RemoteWebDriver(new URL("http://192.168.0.62:4444/wd/hub"), capability);

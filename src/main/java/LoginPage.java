@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,14 +14,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class LoginPage {
     private WebDriver driver;
-    private WebElement webElement;
+    //    private WebElement webElement;
     private Date date = new Date();
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        System.setProperty("webdriver.gecko.driver", "geckodriver");
+//        System.setProperty("webdriver.gecko.driver", "geckodriver");
     }
 
 //
@@ -68,33 +70,31 @@ public class LoginPage {
     }
 
     public void enterProjectName() {
-        webElement = driver.findElement(By.xpath("//*[@id='project-field']"));
-        webElement.click();
-        // Thread.sleep(2000);
-        webElement.sendKeys("QAAutomation2 (QAAUT)");
-        webElement.submit();
-       // Thread.sleep(4000);
+        WebElement projectNameInput = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='project-field']")));
+        projectNameInput.click();
+        projectNameInput.sendKeys("QAAutomation2 (QAAUT)");
+        projectNameInput.submit();
     }
 
-    public void enterSummary(String issueName){
-        String fullIssueNamewithDate = "ISSUE  " + issueName + " at: " + dateFormat.format(date);
-        webElement = driver.findElement(By.xpath("//*[@id='summary']"));
-        webElement.sendKeys(issueName);
-//        Thread.sleep(2000);
+    public void enterSummary(String issueName) {
+        WebElement summary = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='summary']")));
+        summary.sendKeys(issueName);
     }
 
-    public void enterReporter(String reporterName){
-        webElement = driver.findElement(By.xpath("//*[@id='reporter-field']"));
-        webElement.click();
-        webElement.sendKeys(reporterName);
-    //  Thread.sleep(2000);
+    public void enterReporter(String reporterName) {
+        WebElement reporterInputField = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='reporter-field']")));
+        reporterInputField.click();
+        reporterInputField.sendKeys(reporterName);
     }
 
-    public void enterDescription(String description){
+    public void enterDescription(String description) {
         driver.findElement(By.xpath("//*[@id='description']")).sendKeys(description);
     }
 
-    public void clickSubmit(){
+    public void clickSubmit() {
         driver.findElement(By.xpath("//*[@id='create-issue-submit']")).click();
         // Thread.sleep(2000);
     }
@@ -102,7 +102,8 @@ public class LoginPage {
     public void createIssue(String issueName, String reporterName) throws InterruptedException {
         clickCreateNewIssue();
         enterProjectName();
-        enterSummary(issueName);
+        String fullIssueNameWithDate = "ISSUE  " + issueName + " at: " + dateFormat.format(date);
+        enterSummary(fullIssueNameWithDate);
         enterReporter(reporterName);
         enterDescription("Sample description");
         clickSubmit();
@@ -112,7 +113,7 @@ public class LoginPage {
         boolean createIssue = false;
 
         if (driver.findElement(By.xpath("//*[@id='aui-flag-container']/div/div")).isEnabled()) {
-            webElement = driver.findElement(By.xpath("//*[@id='aui-flag-container']/div/div"));
+            WebElement popupWindow = driver.findElement(By.xpath("//*[@id='aui-flag-container']/div/div"));
 //            System.out.println("Создали Issue  = " + fullIssueNamewithDate);
             createIssue = true;
         }
