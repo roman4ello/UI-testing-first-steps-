@@ -1,8 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,15 +17,15 @@ public class LoginPage {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
-    public LoginPage(ChromeDriver driver) {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        this.driver = new ChromeDriver();
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        System.setProperty("webdriver.gecko.driver", "geckodriver");
     }
-
-    public LoginPage(FirefoxDriver driverFirefox) {
-        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
-        this.driver = new FirefoxDriver();
-    }
+//
+//    public LoginPage(FirefoxDriver driverFirefox) {
+//        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+//        this.driver = new FirefoxDriver();
+//    }
 
     public String login(String loginName, String password) throws InterruptedException {
         this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -62,46 +60,65 @@ public class LoginPage {
         return 0;
     }
 
-
-    public boolean createIssue(String IssueName, String textForLogin) throws InterruptedException {
-
-        boolean createIssue = false;
+    public void clickCreateNewIssue() {
         //Search element
         driver.findElement(By.xpath("//*[@id='create_link']")).click();
-        Thread.sleep(3000);
+        // sleep
+    }
 
+    public void enterProjectName() {
         webElement = driver.findElement(By.xpath("//*[@id='project-field']"));
         webElement.click();
-        Thread.sleep(2000);
+        // Thread.sleep(2000);
         webElement.sendKeys("QAAutomation2 (QAAUT)");
         webElement.submit();
+       // Thread.sleep(4000);
+    }
 
-
-        Thread.sleep(4000);
-        String fullIssueNamewithDate = "ISSUE  " + IssueName + " at: " + dateFormat.format(date);
+    public void enterSummary(String issueName){
+        String fullIssueNamewithDate = "ISSUE  " + issueName + " at: " + dateFormat.format(date);
         webElement = driver.findElement(By.xpath("//*[@id='summary']"));
-        webElement.sendKeys(IssueName);
-        Thread.sleep(2000);
+        webElement.sendKeys(issueName);
+//        Thread.sleep(2000);
+    }
 
+    public void enterReporter(String reporterName){
         webElement = driver.findElement(By.xpath("//*[@id='reporter-field']"));
         webElement.click();
-        webElement.sendKeys(textForLogin);
-        Thread.sleep(2000);
+        webElement.sendKeys(reporterName);
+    //  Thread.sleep(2000);
+    }
 
-        driver.findElement(By.xpath("//*[@id='description']")).sendKeys(fullIssueNamewithDate);
+    public void enterDescription(String description){
+        driver.findElement(By.xpath("//*[@id='description']")).sendKeys(description);
+    }
+
+    public void clickSubmit(){
         driver.findElement(By.xpath("//*[@id='create-issue-submit']")).click();
+        // Thread.sleep(2000);
+    }
 
-        Thread.sleep(2000);
-        driver.manage().timeouts().implicitlyWait(1000L, TimeUnit.MILLISECONDS);
+    public void createIssue(String issueName, String reporterName) throws InterruptedException {
+        clickCreateNewIssue();
+        enterProjectName();
+        enterSummary(issueName);
+        enterReporter(reporterName);
+        enterDescription("Sample description");
+        clickSubmit();
+    }
+
+    public boolean popupWindowIsPresent() {
+        boolean createIssue = false;
 
         if (driver.findElement(By.xpath("//*[@id='aui-flag-container']/div/div")).isEnabled()) {
             webElement = driver.findElement(By.xpath("//*[@id='aui-flag-container']/div/div"));
-            System.out.println("Создали Issue  = " + fullIssueNamewithDate);
+//            System.out.println("Создали Issue  = " + fullIssueNamewithDate);
             createIssue = true;
         }
 
-        System.out.println("You successfully have created new ISSUE by NAME: " + fullIssueNamewithDate);
+//        System.out.println("You successfully have created new ISSUE by NAME: " + fullIssueNamewithDate);
 
         return createIssue;
     }
+
 }//class
