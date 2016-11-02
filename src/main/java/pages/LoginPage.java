@@ -1,4 +1,7 @@
+package pages;
+
 import org.openqa.selenium.WebDriver;
+import utills.WebElementInstruments;
 
 /**
  * Created by ramzes on 27.10.2016.

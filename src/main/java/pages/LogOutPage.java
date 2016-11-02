@@ -1,11 +1,13 @@
+package pages;
+
 import org.openqa.selenium.WebDriver;
+import utills.MyXpath;
+import utills.WebElementInstruments;
 
 /**
  * Created by ramzes on 31.10.2016.
  */
 public class LogOutPage {
-    private static final String headersUserFullName = "//*[@id='header-details-user-fullname']";
-    private static final String buttonLogOut = "//*[@id='log_out']";
 
     private WebDriver driver;
     private WebElementInstruments instruments;
@@ -17,7 +19,7 @@ public class LogOutPage {
     }
 
     public void logOut() {
-        instruments.waitForWebElementUntilElementToBeClickable(headersUserFullName).click();
-        instruments.waitForWebElementUntilPresenceOfElementLocated(buttonLogOut).click();
+        instruments.waitForWebElementUntilElementToBeClickable(MyXpath.headersUserFullName).click();
+        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.buttonLogOut).click();
     }
 }//class 
