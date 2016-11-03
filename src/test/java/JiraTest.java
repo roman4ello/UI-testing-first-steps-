@@ -1,6 +1,7 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.IssuePage;
@@ -23,7 +24,7 @@ public class JiraTest {
     private final static String newComment = "First successful commit";
     private final static String newIssueTitle = "This is new title";
 
-    @BeforeTest
+    @BeforeTest(groups = "update")
     public void setUp() {
         driver = new ChromeDriver();
         loginPage = new LoginPage(driver);
@@ -32,14 +33,14 @@ public class JiraTest {
         instruments = new WebElementInstruments(driver);
     }
 
-    //    @AfterTest
+        @AfterTest(groups = "update")
     public void tearDown() throws InterruptedException {
         logOutPage.logOut();
         Assert.assertEquals(instruments.isLogOutWindowPresent(), true);
     }
 
 
-    @Test
+    @Test(groups = "update")
     public void testLogin() throws InterruptedException {
         loginPage.login(login, password);
         Assert.assertEquals(instruments.userProfileImageIsPresent(), true);
@@ -53,35 +54,33 @@ public class JiraTest {
     }
 
 
-    @Test(dependsOnMethods = "testLogin")
+    @Test(groups = "update", dependsOnMethods = "testLogin")
     public void updateReporter() throws InterruptedException {
         issuePage.updateReporter(issueForUpdate, newReporterLogin);
         Assert.assertEquals(instruments.isReporterFieldChanged(newReporterName), true);
     }
 
 
-    @Test(dependsOnMethods = "testLogin")
+    @Test(groups = "update",dependsOnMethods = "testLogin")
     public void updatePriority() throws InterruptedException {
         issuePage.updatePriority(issueForUpdate, newPriority);
         Assert.assertEquals(instruments.isPriorityChanged(newPriority), true);
     }
 
-    @Test(dependsOnMethods = "testLogin")
+    @Test(groups = "update",dependsOnMethods = "testLogin")
     public void addComment() throws InterruptedException {
         issuePage.addComment(issueForUpdate, newComment);
         Assert.assertEquals(instruments.isNewCommentAdded(newComment), true);
     }
 
-    @Test(dependsOnMethods = "testLogin")
+    @Test(groups = "update",dependsOnMethods = "testLogin")
     public void updateIssueTitle() throws InterruptedException {
         issuePage.updateIssueTitle(issueForUpdate, newIssueTitle);
         Assert.assertEquals(instruments.isIssueTitleUpdated(newIssueTitle), true);
     }
 
 
-    @Test(dependsOnMethods = "testLogin")
-    public void testDeleteIssue() throws InterruptedException {
-    }
+
 
 
 }//class

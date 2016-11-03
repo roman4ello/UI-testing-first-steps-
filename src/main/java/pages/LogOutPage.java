@@ -19,7 +19,7 @@ public class LogOutPage {
     }
 
     public void logOut() {
-        instruments.waitForWebElementUntilElementToBeClickable(MyXpath.headersUserFullName).click();
-        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.buttonLogOut).click();
+        instruments.waitForWebElementUntilElementToBeClickable(MyXpath.HEADERS_USER_FULL_NAME).click();
+        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.BUTTON_LOG_OUT).click();
     }
 }//class 

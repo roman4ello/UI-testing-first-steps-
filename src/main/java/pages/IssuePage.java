@@ -33,37 +33,37 @@ public class IssuePage {
     //private methods
     //for createIssue
     private void clickCreateNewIssue() {
-        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.buttonCreateLink)
+        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.BUTTON_CREATE_LINK)
                 .click();
     }
 
     private void enterProjectName() {
         WebElement projectNameInput =
-                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.projectField);
+                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.PROJECT_FIELD);
         projectNameInput.click();
         projectNameInput.sendKeys("QAAutomation2 (QAAUT)");
         projectNameInput.submit();
     }
 
     private void enterSummary(String issueName) {
-        instruments.waitForWebElementUntilElementToBeClickable(MyXpath.summaryField).
+        instruments.waitForWebElementUntilElementToBeClickable(MyXpath.SUMMARY_FIELD).
                 sendKeys(issueName);
     }
 
     private void enterReporter(String reporterName) {
         WebElement reporterInputField =
-                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.reporterField);
+                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.REPORTER_FIELD);
         reporterInputField.click();
         reporterInputField.sendKeys(reporterName);
     }
 
     private void enterDescription(String description) {
-        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.descriptionField).
+        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.DESCRIPTION_FIELD).
                 sendKeys(description);
     }
 
     private void clickSubmit() {
-        instruments.findElementByXpath(MyXpath.buttonCreateIssueSubmit).click();
+        instruments.findElementByXpath(MyXpath.BUTTON_CREATE_ISSUE_SUBMIT).click();
     }
 
 
@@ -85,11 +85,11 @@ public class IssuePage {
 
     private void setNewIssueTitle(String newTitle) throws InterruptedException {
 
-        WebElement issueTitleElement = instruments.findElementByXpath(MyXpath.summaryValue);
+        WebElement issueTitleElement = instruments.findElementByXpath(MyXpath.SUMMARY_VALUE);
         issueTitleElement.click();
 
         Thread.sleep(3000);
-        issueTitleElement = instruments.findElementByXpath(MyXpath.summaryField);
+        issueTitleElement = instruments.findElementByXpath(MyXpath.SUMMARY_FIELD);
 
         issueTitleElement.sendKeys(Keys.DELETE);
         issueTitleElement.sendKeys(newTitle);
@@ -106,39 +106,39 @@ public class IssuePage {
 
     private void addNewComment(String newComment) {
 
-        instruments.findElementByXpath(MyXpath.commentIssue).click();
-        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.commentField).sendKeys(newComment);
-        instruments.findElementByXpath(MyXpath.buttonAddCommentSubmit).click();
+        instruments.findElementByXpath(MyXpath.COMMENT_ISSUE).click();
+        instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.COMMENT_FIELD).sendKeys(newComment);
+        instruments.findElementByXpath(MyXpath.BUTTON_ADD_COMMENT_SUBMIT).click();
 
     }
 
     private void setNewPriority(String newPriority) {
 
-        instruments.findElementByXpath(MyXpath.priorityValue).click();
+        instruments.findElementByXpath(MyXpath.PRIORITY_VALUE).click();
         WebElement priorityFieldElement =
-                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.priorityField);
+                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.PRIORITY_FIELD);
         priorityFieldElement.sendKeys(Keys.DELETE);
         priorityFieldElement.sendKeys(newPriority);
         priorityFieldElement.submit();
     }
 
     private boolean findIssue(String issueForUpdate) {
-        WebElement webElementSearch = instruments.findElementByXpath(MyXpath.searchField);
+        WebElement webElementSearch = instruments.findElementByXpath(MyXpath.SEARCH_FIELD);
         webElementSearch.sendKeys(issueForUpdate);
         webElementSearch.submit();
 
-        return instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.keyValueField)
+        return instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.KEY_VALUE_FIELD)
                 .getAttribute("data-issue-key").equals(issueForUpdate);
 
     }
 
     private void setNewReporter(String newReporter) {
 
-        instruments.findElementByXpath(MyXpath.reporterValue).click();
+        instruments.findElementByXpath(MyXpath.REPORTER_VALUE).click();
 
 
         WebElement reporterFieldElement =
-                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.reporterField);
+                instruments.waitForWebElementUntilPresenceOfElementLocated(MyXpath.REPORTER_FIELD);
         reporterFieldElement.sendKeys(Keys.DELETE);
         reporterFieldElement.sendKeys(newReporter);
         reporterFieldElement.submit();

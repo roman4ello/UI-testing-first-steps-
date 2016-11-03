@@ -51,15 +51,15 @@ public class WebElementInstruments {
 
     //checks booleans methods (проверки)
     public boolean popupWindowIsPresent() {
-        return webElementIsPresent(MyXpath.popUPWindow);
+        return webElementIsPresent(MyXpath.POP_UP_WINDOW);
     }
 
     public boolean userProfileImageIsPresent() {
-        return webElementIsPresent(MyXpath.userProfileImage);
+        return webElementIsPresent(MyXpath.USER_PROFILE_IMAGE);
     }
 
     public boolean isLogOutWindowPresent() {
-        boolean isLogOutwindowPresent = webElementIsPresent(MyXpath.logOutWindow);
+        boolean isLogOutwindowPresent = webElementIsPresent(MyXpath.LOG_OUT_WINDOW);
         this.driver.close();
         System.out.println("Удачно разлогинился и закрыл браузер");
         return isLogOutwindowPresent;
@@ -68,7 +68,7 @@ public class WebElementInstruments {
     public boolean isReporterFieldChanged(String newReporterName) throws InterruptedException {
         Thread.sleep(2000);
         boolean returnValue = false;
-        String reporterValue = findElementByXpath(MyXpath.reporterValue).getText();
+        String reporterValue = findElementByXpath(MyXpath.REPORTER_VALUE).getText();
         if (reporterValue.contains(newReporterName)) {
             returnValue = true;
         }
@@ -79,7 +79,7 @@ public class WebElementInstruments {
     public boolean isPriorityChanged(String newPriotity) throws InterruptedException {
         Thread.sleep(2000);
         boolean returnValue = false;
-        String priorityValue = findElementByXpath(MyXpath.priorityValue).getText();
+        String priorityValue = findElementByXpath(MyXpath.PRIORITY_VALUE).getText();
         if (priorityValue.contains(newPriotity)) {
             returnValue = true;
         }
@@ -89,7 +89,7 @@ public class WebElementInstruments {
     public boolean isNewCommentAdded(String newComment) throws InterruptedException {
         Thread.sleep(2000);
         boolean returnValue = false;
-        String activityModuleValue = waitForWebElementUntilPresenceOfElementLocated(MyXpath.activeModule).getText();
+        String activityModuleValue = waitForWebElementUntilPresenceOfElementLocated(MyXpath.ACTIVE_MODULE).getText();
         String sample = "added a comment - Now\n" + newComment;
         if (activityModuleValue.contains(sample)) {
             returnValue = true;
@@ -102,8 +102,8 @@ public class WebElementInstruments {
 
         Thread.sleep(2000);
         boolean returnValue = false;
-        String issueTitleValue = findElementByXpath(MyXpath.summaryValue).getText();
-        System.out.println("summaryValue = " + issueTitleValue);
+        String issueTitleValue = findElementByXpath(MyXpath.SUMMARY_VALUE).getText();
+        System.out.println("SUMMARY_VALUE = " + issueTitleValue);
 
         String sample = newIssueTitle;
         if (issueTitleValue.contains(sample)) {
