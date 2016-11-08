@@ -19,7 +19,7 @@ public class JiraTest {
     private final static String password = "br777roman";
     private final static String newReporterLogin = "a.a.piluck";
     private final static String newReporterName = "Artur Pilyuk";
-    private final static String issueForUpdate = "QAAUT-1382";
+    private final static String issueForUpdate = "QAAUT-302";
     private final static String newPriority = "Medium";
     private final static String newComment = "First successful commit";
     private final static String newIssueTitle = "This is new title";

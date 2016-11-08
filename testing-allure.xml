@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel test suite" parallel="methods" thread-count="2" >
+
+
+    <test name="General">
+        <classes>
+            <class name="JiraTest"/>
+        </classes>
+    </test>
+
+</suite>
